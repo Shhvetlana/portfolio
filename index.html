@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Svetlana Egorova — Product Leader</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #fafaf8;
+    --gray: #888;
+    --light: #f0efe9;
+    --border: #d8d6ce;
+    --accent: #0a0a0a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--black);
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 3rem;
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    color: var(--black);
+  }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--gray);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--black); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 3rem 4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-tag {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 2rem;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 9vw, 8rem);
+    font-weight: 900;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    margin-bottom: 3rem;
+    max-width: 900px;
+  }
+
+  .hero-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    max-width: 900px;
+    border-top: 1px solid var(--border);
+    padding-top: 2rem;
+  }
+
+  .hero-meta p {
+    font-size: 1rem;
+    color: #444;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .hero-meta-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+
+  .stat {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--gray);
+    font-weight: 400;
+  }
+
+  /* SECTION */
+  section {
+    padding: 5rem 3rem;
+    border-bottom: 1px solid var(--border);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+  }
+
+  .section-title {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  .section-count {
+    font-size: 0.72rem;
+    color: var(--border);
+  }
+
+  /* CASE ITEMS */
+  .case-item {
+    border-top: 1px solid var(--border);
+    padding: 0;
+  }
+
+  .case-header {
+    display: grid;
+    grid-template-columns: 2fr 3fr 2fr;
+    gap: 2rem;
+    padding: 1.75rem 0;
+    cursor: pointer;
+    align-items: start;
+    transition: opacity 0.2s;
+  }
+
+  .case-header:hover { opacity: 0.7; }
+
+  .case-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .case-outcome {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #222;
+    line-height: 1.4;
+  }
+
+  .case-toggle {
+    text-align: right;
+    font-size: 1.2rem;
+    color: var(--gray);
+    font-weight: 300;
+    transition: transform 0.3s;
+  }
+
+  .case-toggle.open { transform: rotate(45deg); }
+
+  .case-body {
+    display: none;
+    padding: 0 0 2rem;
+    grid-template-columns: 2fr 3fr;
+    gap: 3rem;
+  }
+
+  .case-body.open { display: grid; }
+
+  .case-skills { display: flex; flex-direction: column; gap: 0.75rem; }
+
+  .skill-row { display: flex; gap: 0.75rem; align-items: flex-start; }
+
+  .skill-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gray);
+    min-width: 120px;
+    padding-top: 0.1rem;
+    flex-shrink: 0;
+  }
+
+  .skill-value {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: #333;
+  }
+
+  .skill-value strong { color: var(--black); font-weight: 500; }
+
+  /* CV section */
+  .cv-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .cv-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+
+  .btn {
+    display: inline-block;
+    padding: 0.65rem 1.5rem;
+    border: 1px solid var(--black);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--black);
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .btn:hover { background: var(--black); color: var(--white); }
+
+  .btn-filled {
+    background: var(--black);
+    color: var(--white);
+  }
+
+  .btn-filled:hover { background: #333; }
+
+  .cv-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+
+  .cv-body {
+    font-size: 0.95rem;
+    color: #444;
+    font-weight: 300;
+    line-height: 1.75;
+  }
+
+  /* SKILLS GRID */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .skill-cell {
+    background: var(--white);
+    padding: 1.5rem;
+  }
+
+  .skill-cell-label {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 0.75rem;
+  }
+
+  .skill-cell-value {
+    font-size: 0.88rem;
+    line-height: 1.65;
+    color: #333;
+  }
+
+  /* CONTACT */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .contact-big {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 2rem;
+  }
+
+  .contact-detail {
+    font-size: 0.9rem;
+    color: #444;
+    line-height: 2.2;
+  }
+
+  .contact-detail a {
+    color: var(--black);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    transition: border-color 0.2s;
+  }
+
+  .contact-detail a:hover { border-color: var(--black); }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .footer-copy {
+    font-size: 0.75rem;
+    color: var(--gray);
+  }
+
+  .footer-back {
+    font-size: 0.75rem;
+    color: var(--gray);
+    text-decoration: none;
+  }
+
+  .footer-back:hover { color: var(--black); }
+
+  /* PAGE sections wrapper */
+  .page-section {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .page-section > section {
+    border-bottom: none;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1rem; }
+    .hero { padding: 7rem 1.5rem 3rem; }
+    .hero-meta { grid-template-columns: 1fr; }
+    section { padding: 3rem 1.5rem; }
+    .case-header { grid-template-columns: 1fr auto; }
+    .case-outcome { display: none; }
+    .case-body.open { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .cv-block { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">SE</a>
+  <ul class="nav-links">
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#cv">CV</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="page-section">
+<section class="hero">
+  <p class="hero-tag">Product Leader · SME &amp; FinTech</p>
+  <h1>Svetlana<br>Egorova</h1>
+  <div class="hero-meta">
+    <p>6+ years product management and 8+ years people leadership. Building and monetising multi-product ecosystems, scaling cross-functional organisations, and driving P&amp;L growth across SME banking and FinTech.</p>
+    <div class="hero-meta-right">
+      <div class="stat">
+        <span class="stat-num">€112M</span>
+        <span class="stat-label">revenue portfolio owned</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">96</span>
+        <span class="stat-label">FTE org scaled from 4</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">+224%</span>
+        <span class="stat-label">ARPU uplift via subscription</span>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- PORTFOLIO -->
+<div id="portfolio" class="page-section">
+<section>
+  <div class="section-header">
+    <span class="section-title">Selected Work</span>
+    <span class="section-count">09 cases</span>
+  </div>
+
+  <!-- Case 1 -->
+  <div class="case-item">
+    <div class="case-header" onclick="toggleCase(this)">
+      <span class="case-name">Industry-Based Personalisation Strategy</span>
+      <span class="case-outcome">Built and scaled a 3-year industry strategy that transformed SME banking and drove €112M revenue.</span>
+      <span class="case-toggle">+</span>
+    </div>
+    <div class="case-body">
+      <div></div>
+      <div class="case-skills">
+        <div class="skill-row"><span class="skill-label">Vision</span><span class="skill-value"><strong>Defined 3-year vision</strong>, north-star metric, 4 strategic pillars.</span></div>
+        <div class="skill-row"><span class="skill-label">Ownership</span><span class="skill-value">Full P&L (€112M), 100+ FTE org.</span></div>
+        <div class="skill-row"><span class="skill-label">Org Building</span><span class="skill-value">Created vertical product org from scratch.</span></div>
+        <div class="skill-row"><span class="skill-label">Impact</span><span class="skill-value"><strong>ARPU +224%, retention +34 p.p., revenue ×113.</strong></span></div>
+        <div class="skill-row"><span class="skill-label">Data</span><span class="skill-value">Vertical pilots, CRM+A/B validation.</span></div>
+        <div class="skill-row"><span class="skill-label">Technical</span><span class="skill-value">CRM &amp; multi-channel architecture shaping.</span></div>
+        <div class="skill-row"><span class="skill-label">Influence</span><span class="skill-value"><strong>Secured C-level buy-in</strong>, overcame structural resistance.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Case 2 -->
+  <div class="case-item">
+    <div class="case-header" onclick="toggleCase(this)">
+      <span class="case-name">eCommerce Suite &amp; Subscription Model</span>
+      <span class="case-outcome">Created full-stack eCommerce suite and subscription model generating €1M+ recurring revenue.</span>
+      <span class="case-toggle">+</span>
+    </div>
+    <div class="case-body">
+      <div></div>
+      <div class="case-skills">
+        <div class="skill-row"><span class="skill-label">Execution</span><span class="skill-value">Turned vertical insights into monetisation.</span></div>
+        <div class="skill-row"><span class="skill-label">Ownership</span><span class="skill-value">Portfolio lead; multi-component product stack.</span></div>
+        <div class="skill-row"><span class="skill-label">Impact</span><span class="skill-value"><strong>ARPU +224%, GMV +169%, +100M RUB recurring revenue.</strong></span></div>
+        <div class="skill-row"><span class="skill-label">Data</span><span class="skill-value">Discovery across merchants, tiered pricing validation.</span></div>
+        <div class="skill-row"><span class="skill-label">Technical</span><span class="skill-value">API ecosystem, workflow integration, logistics partners.</span></div>
+        <div class="skill-row"><span class="skill-label">Leadership</span><span class="skill-value">Aligned CRM, Sales, Marketing, IT.</span></div>
+        <div class="skill-row"><span class="skill-label">GTM</span><span class="skill-value"><strong>Built vertical acquisition engine (Alfa Konfa).</strong></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Case 3 -->
+  <div class="case-item">
+    <div class="case-header" onclick="toggleCase(this)">
+      <span class="case-name">Alfa Konfa — Stakeholder Alignment</span>
+      <span class="case-outcome">Secured buy-in for mono-vertical conference despite resistance, now scaled to 6 industries.</span>
+      <span class="case-toggle">+</span>
+    </div>
+    <div class="case-body">
+      <div></div>
+      <div class="case-skills">
+        <div class="skill-row"><span class="skill-label">Leadership</span><span class="skill-value"><strong>Overcame emotional resistance; reframed risk.</strong></span></div>
+        <div class="skill-row"><span class="skill-label">Alignment</span><span class="skill-value">SME head + Marketing director cross-functional.</span></div>
+        <div class="skill-row"><span class="skill-label">GTM</span><span class="skill-value">Built strategic event-based acquisition engine.</span></div>
+        <div class="skill-row"><span class="skill-label">Impact</span><span class="skill-value"><strong>Strong attendance, brand lift +30%.</strong></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Case 4 -->
+  <div class="case-item">
+    <div class="case-header" onclick="toggleCase(this)">
+      <span class="case-name">Team &amp; Culture Development</span>
+      <span class="case-outcome">Scaled product organisation from 4 → 100+ FTE with leadership layers and rituals.</span>
+      <span class="case-toggle">+</span>
+    </div>
+    <div class="case-body">
+      <div></div>
+      <div class="case-skills">
+        <div class="skill-row"><span class="skill-label">Org Scaling</span><span class="skill-value">Built Stream Leads → CPOs → POs structure.</span></div>
+        <div class="skill-row"><span class="skill-label">Leadership</span><span class="skill-value"><strong>6 PMs → leads, 3 → BU heads.</strong></span></div>
+        <div class="skill-row"><span class="skill-label">Process</span><span class="skill-value">Introduced OKR, discovery cadence, reviews.</span></div>
+        <div class="skill-row"><span class="skill-label">Hiring</span><span class="skill-value">100% final-round ownership.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Case 5 -->
+  <div class="case-item">
+    <div class="case-header" onclick="toggleCase(this)">
+      <span class="case-name">Industry Subscriptions (Monetisation Engine)</span>
+      <span class="case-outcome">Introduced subscription model replacing tariffs and driving ARPU uplift across verticals.</span>
+      <span class="case-toggle">+</span>
+    </div>
+    <div class="case-body">
+      <div></div>
+      <div class="case-skills">
+        <div class="skill-row"><span class="skill-label">Monetisation</span><span class="skill-value">Defined pricing logic and unit economics.</span></div>
+        <div class="skill-row"><span class="skill-label">Impact</span><span class="skill-value"><strong>ARPU +224%, retention 89% at 2m.</strong></span></div>
+        <div class="skill-row"><span class="skill-label">Influence</span><span class="skill-value">Alignment with Finance, CRM, Marketing, IT.</span></div>
+        <div class="skill-row"><span class="skill-label">Vision</span><span class="skill-value">Core pillar of industry strategy.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Case 6 -->
+  <div class="case-item">
+    <div class="case-header" onclick="toggleCase(this)">
+      <span class="case-name">Market Pulse (Benchmarking Tool)</span>
+      <span class="case-outcome">Created SME performance benchmarking integrated into the online bank.</span>
+      <span class="case-toggle">+</span>
+    </div>
+    <div class="case-body">
+      <div></div>
+      <div class="case-skills">
+        <div class="skill-row"><span class="skill-label">Design</span><span class="skill-value">Analytics-heavy modelling and insight architecture.</span></div>
+        <div class="skill-row"><span class="skill-label">Discovery</span><span class="skill-value">Validated demand via interviews &amp; quant testing.</span></div>
+        <div class="skill-row"><span class="skill-label">Technical</span><span class="skill-value">Integration with analytics and digital bank.</span></div>
+        <div class="skill-row"><span class="skill-label">Impact</span><span class="skill-value"><strong>Engagement &amp; conversion uplift.</strong></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Case 7 -->
+  <div class="case-item">
+    <div class="case-header" onclick="toggleCase(this)">
+      <span class="case-name">SME Payments Platform (2017–2021)</span>
+      <span class="case-outcome">Redesigned SME payment flow, doubling volume and improving cost-to-income by 35%.</span>
+      <span class="case-toggle">+</span>
+    </div>
+    <div class="case-body">
+      <div></div>
+      <div class="case-skills">
+        <div class="skill-row"><span class="skill-label">Ownership</span><span class="skill-value">Fully accountable PO for high-load system.</span></div>
+        <div class="skill-row"><span class="skill-label">Impact</span><span class="skill-value"><strong>455B → 944B RUB volume, +3M transactions.</strong></span></div>
+        <div class="skill-row"><span class="skill-label">Technical</span><span class="skill-value">Backend optimisation, throughput.</span></div>
+        <div class="skill-row"><span class="skill-label">UX</span><span class="skill-value">Contextual guidance, fee preview.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Case 8 -->
+  <div class="case-item">
+    <div class="case-header" onclick="toggleCase(this)">
+      <span class="case-name">B2B Matching Tool (AML-based Engine)</span>
+      <span class="case-outcome">Built AML-driven partner matching with 83% MAU and >10× ROI.</span>
+      <span class="case-toggle">+</span>
+    </div>
+    <div class="case-body">
+      <div></div>
+      <div class="case-skills">
+        <div class="skill-row"><span class="skill-label">Innovation</span><span class="skill-value"><strong>First recommendation engine in region.</strong></span></div>
+        <div class="skill-row"><span class="skill-label">Impact</span><span class="skill-value">–17% freeze-risk; +8% balances; ROI >10×.</span></div>
+        <div class="skill-row"><span class="skill-label">ML &amp; Data</span><span class="skill-value">AML, ML scoring, judicial databases.</span></div>
+        <div class="skill-row"><span class="skill-label">Technical</span><span class="skill-value">Secured Python-in-prod exception.</span></div>
+        <div class="skill-row"><span class="skill-label">Leadership</span><span class="skill-value">Legal, DS, architecture, SME digital.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Case 9 -->
+  <div class="case-item">
+    <div class="case-header" onclick="toggleCase(this)">
+      <span class="case-name">Discovery Case — Statement Subscription</span>
+      <span class="case-outcome">Identified hidden daily user pain and delivered high-adoption automated statement delivery.</span>
+      <span class="case-toggle">+</span>
+    </div>
+    <div class="case-body">
+      <div></div>
+      <div class="case-skills">
+        <div class="skill-row"><span class="skill-label">Discovery</span><span class="skill-value">Insight from unrelated interview; validated via analytics.</span></div>
+        <div class="skill-row"><span class="skill-label">Execution</span><span class="skill-value"><strong>1-week MVP, 30% conversion.</strong></span></div>
+        <div class="skill-row"><span class="skill-label">Technical</span><span class="skill-value">Timezone-normalisation architecture.</span></div>
+        <div class="skill-row"><span class="skill-label">Impact</span><span class="skill-value"><strong>One of the most-used features in statements module.</strong></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Last border -->
+  <div style="border-top: 1px solid var(--border);"></div>
+</section>
+</div>
+
+<!-- SKILLS -->
+<div class="page-section">
+<section>
+  <div class="section-header">
+    <span class="section-title">Skills</span>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-cell">
+      <div class="skill-cell-label">Product</div>
+      <div class="skill-cell-value">Product Strategy · Discovery &amp; R&amp;D · JTBD · Unit Economics · P&amp;L Ownership · MVP · Experimentation · Retention · A/B Testing</div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-cell-label">Leadership</div>
+      <div class="skill-cell-value">Product Leadership · Team Building &amp; Mentoring · Cross-functional Collaboration · OKR · Digital Transformation · Stakeholder Management</div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-cell-label">Delivery</div>
+      <div class="skill-cell-value">Agile · Scrum · Kanban · Lean · Six Sigma Green Belt · Data-driven Decision Making · Customer Insights · Service Design</div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-cell-label">Domains</div>
+      <div class="skill-cell-value">SME Banking · FinTech · eCommerce · Payments · B2B Platforms · Subscription Models · Marketplaces</div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-cell-label">Languages</div>
+      <div class="skill-cell-value">Russian — native · English — C1 · French — B2 · Spanish — A2 · Hebrew — A1</div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-cell-label">Education</div>
+      <div class="skill-cell-value">CS &amp; Software Engineering, Moscow Aviation University · Product Management, UC Berkeley Haas · Lean Six Sigma ICGB</div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- CV -->
+<div id="cv" class="page-section">
+<section>
+  <div class="section-header">
+    <span class="section-title">CV</span>
+  </div>
+  <div class="cv-block">
+    <div>
+      <h2 class="cv-headline">Full professional history</h2>
+      <p class="cv-body">10+ years at Alfa-Bank across product management, people leadership, and process transformation. Building product organisations, monetisation engines, and scalable SME banking ecosystems.</p>
+      <div class="cv-links">
+        <a href="Svetlana_Egorova_Product_Lead.pdf" class="btn btn-filled" target="_blank">Download CV (PDF)</a>
+      </div>
+    </div>
+    <div>
+      <div class="case-skills" style="border-left: 1px solid var(--border); padding-left: 2rem;">
+        <div class="skill-row"><span class="skill-label">2021 – now</span><span class="skill-value"><strong>Lead Product Manager</strong>, Alfa-Bank — multi-industry verticals, €100–120M portfolio, 96 FTE org</span></div>
+        <div class="skill-row" style="margin-top:0.5rem;"><span class="skill-label">2017 – 2021</span><span class="skill-value"><strong>Product Manager</strong>, Alfa-Bank — SME payment services, Internet &amp; Mobile Banking</span></div>
+        <div class="skill-row" style="margin-top:0.5rem;"><span class="skill-label">2015 – 2017</span><span class="skill-value"><strong>Process Transformation Manager</strong>, Alfa-Bank FinTech — Agile transformation, 150 teams</span></div>
+        <div class="skill-row" style="margin-top:0.5rem;"><span class="skill-label">2024 – now</span><span class="skill-value"><strong>Head of Product Lab</strong>, Plekhanov University — founded first practice-based product lab</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- CONTACT -->
+<div id="contact" class="page-section">
+<section>
+  <div class="section-header">
+    <span class="section-title">Contact</span>
+  </div>
+  <div class="contact-grid">
+    <div>
+      <p class="contact-big">Open to Head of Product, Lead PM, and Senior PM roles across European markets.</p>
+      <div class="cv-links">
+        <a href="mailto:saegorova@gmail.com" class="btn btn-filled">Send an email</a>
+        <a href="https://linkedin.com" class="btn" target="_blank">LinkedIn</a>
+      </div>
+    </div>
+    <div class="contact-detail">
+      <div>Tel Aviv, Israel</div>
+      <div>Sens, France (titre de séjour)</div>
+      <div style="margin-top:1rem;"><a href="mailto:saegorova@gmail.com">saegorova@gmail.com</a></div>
+      <div><a href="tel:+972535502916">+972 53-550-2916</a></div>
+      <div><a href="tel:+33768865429">+33 7 68 86 54 29</a></div>
+      <div style="margin-top:1rem; font-size:0.8rem; color: var(--gray);">Targeting: France · Germany · Spain · Israel · Netherlands · Switzerland</div>
+    </div>
+  </div>
+</section>
+</div>
+
+<footer>
+  <span class="footer-copy">© 2025 Svetlana Egorova</span>
+  <a href="#" class="footer-back">Back to top ↑</a>
+</footer>
+
+<script>
+function toggleCase(header) {
+  const toggle = header.querySelector('.case-toggle');
+  const body = header.nextElementSibling;
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  toggle.classList.toggle('open', !isOpen);
+}
+</script>
+</body>
+</html>
