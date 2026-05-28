@@ -433,7 +433,7 @@
 <section>
   <div class="section-header">
     <span class="section-title">Selected Work</span>
-    <span class="section-count">09 cases</span>
+    <span class="section-count">10 cases</span>
   </div>
 
   <!-- Case 1 -->
@@ -601,6 +601,28 @@
         <div class="skill-row"><span class="skill-label">Execution</span><span class="skill-value"><strong>1-week MVP, 30% conversion.</strong></span></div>
         <div class="skill-row"><span class="skill-label">Technical</span><span class="skill-value">Timezone-normalisation architecture.</span></div>
         <div class="skill-row"><span class="skill-label">Impact</span><span class="skill-value"><strong>One of the most-used features in statements module.</strong></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Case 10 -->
+  <div class="case-item">
+    <div class="case-header" onclick="toggleCase(this)">
+      <span class="case-name">Personal Finance Intelligence System</span>
+      <span class="case-outcome">Built a multi-bank, multi-currency household DWH with AI-powered monthly analysis — from scratch, solo, in production.</span>
+      <span class="case-toggle">+</span>
+    </div>
+    <div class="case-body">
+      <div></div>
+      <div class="case-skills">
+        <div class="skill-row"><span class="skill-label">Problem</span><span class="skill-value">No off-the-shelf tool handled multi-bank, multi-currency, multi-language consolidation across 2 countries, 6 sources, 3 currencies (ILS, EUR, USD).</span></div>
+        <div class="skill-row"><span class="skill-label">Ownership</span><span class="skill-value">Solo end-to-end: product definition, data architecture, parser engineering, prompt engineering, infrastructure, and ongoing iteration.</span></div>
+        <div class="skill-row"><span class="skill-label">System Design</span><span class="skill-value"><strong>Layered home DWH:</strong> raw ingestion → deduplication → FX normalisation → feature layer → 15+ analytical views → Python aggregation → AI narrative. Deterministic computation in Python; the model handles language only, never numbers.</span></div>
+        <div class="skill-row"><span class="skill-label">Technical</span><span class="skill-value">4 parsers across 6 bank formats, 3 languages and encodings (Armenian PDF Win-1251, Hebrew spreadsheet, Hebrew CSV, English CSV). Python, FastAPI, Supabase (PostgreSQL), Anthropic Claude API, Oracle Cloud Free Tier.</span></div>
+        <div class="skill-row"><span class="skill-label">UX Decision</span><span class="skill-value">Entry point is a shared Telegram group — the same channel the household already uses. Zero activation cost, no separate app.</span></div>
+        <div class="skill-row"><span class="skill-label">Iteration</span><span class="skill-value"><strong>14 system versions, 15 prompt iterations</strong> — each validated against hand-labelled reference outputs before being accepted as production. Prompt architecture evolved from a single large call to a 5-function parallel pipeline to the current: Python pre-computation → 5 sequential focused AI calls.</span></div>
+        <div class="skill-row"><span class="skill-label">Impact</span><span class="skill-value">Identified 2–3 forgotten subscriptions in month one. Established weekly category limits across variable spend. Produces a monthly runway figure that directly informs household financial decisions.</span></div>
+        <div class="skill-row"><span class="skill-label">Scalability</span><span class="skill-value">Architecture built for shareability from day one: parser routing via stable account keys, bank rules in DB not hardcoded, 15 versions of documentation maintained.</span></div>
       </div>
     </div>
   </div>
